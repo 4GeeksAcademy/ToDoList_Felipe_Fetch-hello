@@ -51,6 +51,7 @@ function InputTask(props) {
                     </label>
                     <input 
                         type="text" 
+                        placeholder="What needs to be done?"
                         className="form-control" 
                         id="title"
                         value={formData.title}
