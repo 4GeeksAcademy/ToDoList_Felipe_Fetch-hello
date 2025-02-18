@@ -4,7 +4,7 @@ import ListItem from "./ListItem";
 function CreateList(props) {
 
     if (!props.arrayList || props.arrayList.length === 0) {
-        return <div className="container mt-3">No hay elementos en la lista.</div>;
+        return <div className="container mt-3">There are no items in the list.</div>;
     }
 
     return (
