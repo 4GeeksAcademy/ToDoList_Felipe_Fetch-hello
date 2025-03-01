@@ -8,7 +8,7 @@ function ListItem(props) {
         <>
             <li className="list-group-item d-flex justify-content-between align-item-center" 
             id={props.id} >
-                {props.title}
+                {props.label}
                 <button onClick={handleClick} type="button" 
                 className="btn btn-outline-danger">
                     Delete

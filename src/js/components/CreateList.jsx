@@ -16,7 +16,7 @@ function CreateList(props) {
                             <ListItem 
                                 key= {index}
                                 id={element.id}
-                                title={element.title}
+                                label={element.label}
                                 deleteTask={props.deleteList}
                             />
                         )
