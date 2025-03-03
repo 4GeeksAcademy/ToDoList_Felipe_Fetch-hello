@@ -137,6 +137,7 @@ const Home = () => {
 			}
 			
 			setTask(task.filter(task => task.id !== id))
+			setSelectedUser((prevUser) => ({...prevUser, todos: [...prevUser.todos.filter(task => task.id !== id)]}))
 			await fetchTodos(selectedUser.name)
 		  } catch (error) {
 			console.error('Hubo un problema al eliminar el usuario:', error.message);
