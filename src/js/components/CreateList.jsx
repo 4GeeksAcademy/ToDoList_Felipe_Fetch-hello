@@ -17,7 +17,9 @@ function CreateList(props) {
                                 key= {index}
                                 id={element.id}
                                 label={element.label}
+                                is_done={element.is_done}
                                 deleteTask={props.deleteList}
+                                completedTask={props.completedTask}
                             />
                         )
                     }

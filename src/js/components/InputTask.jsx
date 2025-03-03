@@ -5,8 +5,6 @@ function InputTask(props) {
     const [currentLabel, setCurrentLabel] = useState({
         label: "",
     })
-    const [error, setError] = useState("");
-
     const [showAlert, setShowAlert] = useState(false)
     const [showAlertTrim, setShowAlertTrim] = useState(false)
 

@@ -6,16 +6,13 @@ import UserDropdown from "./UserDropdown";
 import { useState, useEffect } from "react";
 
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
 //create your first component
 const Home = () => {
 	
 	const [task, setTask] = useState([])
 	const [allUsers, setAllUsers] = useState([])
 	const [selectedUser, setSelectedUser] = useState(null)
-	const [dataUser, setDataUser] = useState(null)
+	
 
 	useEffect(( )=> {
 		fetchUsers()
@@ -123,6 +120,7 @@ const Home = () => {
 				const data = await response.json();
 				console.log(data)
 				setTask((prev) => [...prev, data])
+				setSelectedUser((prevUser) => ({...prevUser, todos: [...prevUser.todos, data]}))
 				await fetchTodos(selectedUser.name)
 		} catch (error) {
 			console.error("Error al añadir tarea al usuario")
@@ -131,7 +129,7 @@ const Home = () => {
 	
 	const deleteTask = async (id) => {
 		try {
-			const response = await fetch(`https://playground.4geeks.com/todo/users/${selectedUser.name}`, {
+			const response = await fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
 			  method: 'DELETE',
 			});
 			if (!response.ok) {
@@ -145,12 +143,41 @@ const Home = () => {
 		  }
     }
 
+	const taskCompleted = async (id) => {
+		const taskUpdate = task.find((task) => task.id === id)
+
+		try {
+			const response = await fetch(
+				`https://playground.4geeks.com/todo/todos/${id}`,
+				{
+					method: 'PUT',
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({...taskUpdate, is_done: !taskUpdate.is_done}),
+			  	}
+			);
+			if (!response.ok) {
+				throw new Error ("Error al actualizar la tarea.")
+			};
+
+			setTask(
+				task.map((task) => {
+					return task.id === id ? { ...task, is_done: !task.is_done } : task;
+				})
+			);
+			
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
 	return (
 		<>
 		<CreateUser newUser={createNewUser} />
 		<UserDropdown users={allUsers} selectedUser={userSelected} infoUser={selectedUser} />
 		<InputTask addOneTask={addTask} />
-		<CreateList arrayList={task} deleteList={deleteTask}/>
+		<CreateList arrayList={task} deleteList={deleteTask} completedTask={taskCompleted}/>
 		</>
 	);
 };
