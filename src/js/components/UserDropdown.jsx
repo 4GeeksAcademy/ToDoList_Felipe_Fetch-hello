@@ -3,10 +3,6 @@ import { useEffect } from "react"
 
 function UserDropdown(props) {
 
-    useEffect(() =>{
-        console.log("El usuario ha sido actualizado:", props.infoUser)
-    },[props.infoUser])
-
     return (
         <>
         <div className="container mt-4">
